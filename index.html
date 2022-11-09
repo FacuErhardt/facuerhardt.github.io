@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--==================== UNICONS ====================-->
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        
+        <!--=============== REMIXICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <!--==================== SWIPER CSS ====================-->
+        <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+        
+        <!--==================== CSS ====================-->
+        <link rel="stylesheet" href="assets/css/styles.css">
+
+        <title>Responsive Portfolio Website</title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">Facu</a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list grid">
+                        
+                        <li class="nav__item">
+                            <a href="#home" class="nav__link active-link">                   
+                                <i class="uil uil-estate nav__icon"></i>Home
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#about" class="nav__link">
+                                <i class="uil uil-user-circle nav__icon"></i> About
+                            </a>
+                        </li>
+                                             
+                        <li class="nav__item">
+                            <a href="#qualification" class="nav__link">
+                                <i class="uil uil-scenery nav__icon"></i>Qualification
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#services" class="nav__link">
+                                <i class="uil uil-briefcase nav__icon"></i> Services
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#contact" class="nav__link">
+                                <i class="uil uil-message nav__icon"></i> Contact
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <i class="uil uil-times nav__close" id="nav-close"></i>
+                </div>
+
+                <div class="nav__btns">
+                    <!-- Theme change button -->
+                    <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+                    <div class="nav__toggle" id="nav-toggle">
+
+                        <i class="uil uil-apps"></i> 
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!--==================== MAIN ====================-->
+        <main class="main">
+            <!--==================== HOME ====================-->
+            <section class="home section" id="home">
+                <div class="home__container container grid">
+                    <div class="home__content grid">
+                        <div class="home__social">
+                            <a href="https://www.linkedin.com/in/facundoerhardt/" target="_blank" class="home__social-icon">
+                                <i class="uil uil-linkedin"></i>
+                            </a>
+
+                            <a href="https://github.com/FacuErhardt" target="_blank" class="home__social-icon">
+                                <i class="uil uil-github"></i>
+                            </a>   
+                            
+                            <a href="https://www.instagram.com/facu_erhardt/" target="_blank" class="home__social-icon">
+                                <i class="uil uil-instagram"></i>
+                            </a>   
+                            
+
+                        </div>
+
+                        <div class="home__img">
+                            <?xml version="1.0" standalone="no"?>
+                            <svg class="home__blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                              <path fill="fill" d="M57.1,-44.4C71.6,-27.3,79.4,-3.7,74.5,16.7C69.7,37.2,52.1,54.4,30.5,
+                                65.8C8.9,77.2,-16.8,82.7,-38.4,74.3C-60.1,66,-77.7,43.9,-80.5,21.3C-83.4,-1.3,-71.5,-24.4,-55.6,
+                                -41.8C-39.7,-59.1,-19.8,-70.8,0.7,-71.4C21.3,-71.9,42.6,-61.4,57.1,
+                                -44.4Z" transform="translate(100 100)"/>
+                                <image class="home__blob-img" x='12' y='-15' xlink:href="assets/img/fotoPerfil.png"/>                                
+                                              
+                    
+                            </svg>                             
+                        </div>
+
+                        <div class="home__data">
+                            <h1 class="home__tittle">Hi, I'm Facu</h1>
+                            <h3 class="home__subtitle">Software developer</h3>
+                            <p class="home__description"> Experience in video game development,
+                                 mobile app and website. producing quality work.</p>
+                            <a href="#contact" class="button button--flex">
+                                Contact Me <i class="uil uil-message button__icon"></i>
+                            </a>    
+                        </div>
+                    </div>
+
+                    <div class="home__scroll">
+                        <a href="#about" class="home__scroll-button button--flex">
+                            
+                            <span class="home__scroll-name">Scroll down</span>
+                            <i class="uil uil-angle-double-down home__scroll-mouse"></i>
+                        </a>
+                    </div>
+                </div>
+    
+
+            </section>
+
+            <!--==================== ABOUT ====================-->
+            <section class="about section" id="about">
+                <h2 class="section__title">About Me</h2>
+                <span class="section__subtitle">My introduction</span>
+        
+                <div class="about__container container grid">
+                    <img src="assets/img/fotoAbout.jpg" alt="" class="about__img">
+                    
+                    <div class="about_data">
+                        <p class="about__description"> I started my career as python developer and then moved to video games developer,
+                             where I learned how to use Unity3D engine, which is my current favorite tool.
+                            I love creating new worlds, characters and stories.
+                             I also like to explore new technologies in order to create better and more fun experiences for players.</p>
+                    
+
+                        <div class="about__buttons">
+                            <a download="" href="assets/pdf/Curriculum Vitae - Facundo Erhardt - Ingles.pdf" class="button button-flex">
+                                Download CV<i class="uil uil-file-download button_icon" ></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!--==================== SKILLS ====================-->
+            <section class="filters container">
+                <!--=============== FILTERS TABS ===============-->
+                <ul class="filters__content">
+                    <button class="filters__button filter-tab-active" data-target="#skills">
+                        Skills    
+                    </button>
+                    <button class="filters__button" data-target="#projects">
+                        Projects
+                    </button>
+                </ul>    
+                <div class="filters__sections">
+                    <!--==================== SKILLS ====================-->
+                    <div class="skills__content grid" data-content id="skills">              
+                        <div class="skills__area">
+                            <h3 class="skills__title">
+                                Development
+                            </h3>
+
+                            <div class="skills__box">
+                                <div class="skills__group">
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">HTML</h3>
+                                        <span class="skills__level">Basic</span>
+                                        </div>   
+                                    </div>
+
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">CSS</h3>
+                                        <span class="skills__level">Basic</span>
+                                        </div>   
+                                    </div>
+
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">JavaScript</h3>
+                                        <span class="skills__level">Basic</span>
+                                        </div>   
+                                    </div>
+                                </div>
+
+                                <div class="skills__group">
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">Python</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                        </div>   
+                                    </div>
+
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">Java</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                        </div>   
+                                    </div>
+                                    
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">C#</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skills__area">
+                            <h3 class="skills__title">
+                                Development Tools and Design
+                            </h3>
+
+                            <div class="skills__box">
+                                <div class="skills__group">
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">Unity</h3>
+                                        <span class="skills__level">Advanced</span>
+                                        </div>   
+                                    </div>
+
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">Eclipse IDE</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                        </div>   
+                                    </div>
+
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">Visual Studio</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                        </div>   
+                                    </div>
+
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">VS Code</h3>
+                                        <span class="skills__level">Advanced</span>
+                                        </div>   
+                                    </div>
+                                </div>
+
+                                <div class="skills__group">
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">Android Studio</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                        </div>   
+                                    </div>
+
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">Godot</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                        </div>   
+                                    </div>
+                                    
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">Figma</h3>
+                                        <span class="skills__level">Intermediate</span>
+                                        </div>   
+                                    </div>
+
+                                    <div class="skills__data">
+                                        <i class="ri-checkbox-circle-line"></i>
+                                        
+                                        <div>
+                                        <h3 class="skills__name">Illustrator</h3>
+                                        <span class="skills__level">Basic</span>
+                                        </div>   
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            <!--==================== PROJECTS IN PROGRESS====================-->
+            
+                    <div class="projects__content grid filters__active" data-content id="projects">
+                        <article class="projects__card">
+                            <img src="assets/img/fotoPortfolio1.jpg" alt="" class="projects__img">
+
+                            <div class="projects__modal">
+                                <div>
+                                    <span class="projects__subtitle">Web</span>
+                                    <h3 class="projects__title">Porfolio website</h3>
+                                    <!-- When you´ll have your project page!!
+                                        <a href="" class="projects__button button button__small">
+                                        <i class="ri-link"></i>
+                                    </a> -->
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="projects__card">
+                            <img src="assets/img/fotoPortfolio2.png" alt="" class="projects__img">
+
+                            <div class="projects__modal">
+                                <div>
+                                    <span class="projects__subtitle">Web</span>
+                                    <h3 class="projects__title">Ecommerce Store</h3>
+                                    <!-- When you´ll have your project page!!
+                                        <a href="" class="projects__button button button__small">
+                                        <i class="ri-link"></i>
+                                    </a> -->
+                                </div>    
+                            </div>
+                        </article>
+
+                        <article class="projects__card">
+                            <img src="assets/img/fotoPortfolio3.jpg" alt="" class="projects__img">
+
+                            <div class="projects__modal">
+                                <div>
+                                    <span class="projects__subtitle">Videogame Unity</span>
+                                    <h3 class="projects__title">Platform 2D</h3>
+                                    <!-- When you´ll have your project page!!
+                                        <a href="" class="projects__button button button__small">
+                                        <i class="ri-link"></i>
+                                    </a> -->
+                                </div>    
+                            </div>
+                        </article>
+
+                        <article class="projects__card">
+                            <img src="assets/img/shotEmUp.png" alt="" class="projects__img">
+
+                            <div class="projects__modal">
+                                <div>
+                                    <span class="projects__subtitle">Videogame Godot</span>
+                                    <h3 class="projects__title">Shoot em up</h3>
+                                    <!-- When you´ll have your project page!!
+                                        <a href="" class="projects__button button button__small">
+                                        <i class="ri-link"></i>
+                                    </a> -->
+                                </div>    
+                            </div>
+                        </article>    
+                    </div>
+                </div>
+            </section>
+            
+            <!--==================== QUALIFICATION ====================-->
+            <section class="qualification section" id="qualification">
+                <h2 class="section__title">Qualification</h2>
+                <span class="section__subtitle">my personal journey</span>
+
+                <div class="qualification__container container">
+                    <div class="qualification__tabs">
+                        <h3 class="qualification__title" data-target="#education">
+                            <i class="uil uil-graduation-cap qualification__icon"></i>
+                            Education
+                        </h3>
+                    </div>
+
+                    <div class="qualification__sections">
+                        <!--==================== QUALIFICATION CONTENT ====================-->
+                        <div class="qualification__content qualification__active" data-content id="education">
+                            <!--==================== QUALIFICATION 1 ====================-->
+                            <div class="qualification__data">
+                                <div>
+                                    <h3 class="qualification__title">Computer Science</h3>
+                                    <span class="qualification__subtitle">National University General Sarmiento</span>
+                                    <div class="qualification__calendar">
+                                        <i class="uil uil-calender"></i>
+                                        2017-2019
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="qualification__rounder"></span>
+                                    <span class="qualification__line"></span>
+                                </div>
+                            </div>
+
+                            <!--==================== QUALIFICATION 2 ====================-->
+                            <div class="qualification__data">
+                                <div></div>
+
+                                <div>
+                                    <span class="qualification__rounder"></span>
+                                    <span class="qualification__line"></span>
+                                </div>
+
+                                <div>
+                                    <h3 class="qualification__title">Videogame Development</h3>
+                                    <span class="qualification__subtitle">National Technological University Buenos Aires</span>
+                                    <div class="qualification__calendar">
+                                        <i class="uil uil-calender"></i>
+                                        2019-2020
+                                    </div>
+                                </div>
+                              
+                            </div>
+                            <!--==================== QUALIFICATION 3 ====================-->
+                            <div class="qualification__data">
+                                <div>
+                                    <h3 class="qualification__title">Mobile App Development</h3>
+                                    <span class="qualification__subtitle">Madrid University - Google Activate</span>
+                                    <div class="qualification__calendar">
+                                        <i class="uil uil-calender"></i>
+                                        2020
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="qualification__rounder"></span>
+                                    <span class="qualification__line"></span>
+                                </div>
+                            </div>
+
+                            <!--==================== QUALIFICATION 4 ====================-->
+                            <div class="qualification__data">
+                                <div></div>
+
+                                <div>
+                                    <span class="qualification__rounder"></span>
+                                   <!--  <span class="qualification__line"></span> -->
+                                </div>
+
+                                <div>
+                                    <h3 class="qualification__title">Web Development & Data Science</h3>
+                                    <span class="qualification__subtitle">Platzi Digital University</span>
+                                    <div class="qualification__calendar">
+                                        <i class="uil uil-calender"></i>
+                                        2020-2022
+                                    </div>
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--==================== SERVICES ====================-->
+            <section class="services section" id="services">
+                <h2 class="section__title">Services</h2>
+                <span class="section__subtitle">What i offer</span>
+
+                <div class="services__container container grid">
+                    <!--==================== SERVICES 1 ====================-->
+                    <div class="services__content">
+                        <div>
+                            <i class="uil uil-web-grid-alt services__icon"></i>
+                            <h3 class="services__title">App Mobile<br> Designer </h3>
+                        </div>
+
+                        <span class="button button--flex button--small button--link services__button">
+                            View More
+                            <i class="uil uil-arrow-right button__icon"></i>                            
+                        </span>
+
+                        <div class="services__modal">
+                            <div class="services__modal-content">
+                                <h4 class="services__modal-title"> App Mobile<br> Designer</h4>
+                                <i class="uil uil-times services__modal-close"></i>
+
+                                <ul class="services__modal-services grid">
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>I develop the user interface app.</p>
+                                    </li>
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>I create ux element interactions.</p>
+                                    </li>
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>I create scripts with OPP.</p>
+                                    </li>
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>I graph metrics of your business.</p>
+                                    </li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>  
+
+                     <!--==================== SERVICES 2 ====================-->
+                    <div class="services__content">
+                        <div>
+                            <i class="uil uil-arrow services__icon"></i>
+                            <h3 class="services__title">Frontend <br> Developer </h3>
+                        </div>
+
+                        <span class="button button--flex button--small button--link services__button">
+                            View More
+                            <i class="uil uil-arrow-right button__icon"></i>                            
+                        </span>
+
+                        <div class="services__modal">
+                            <div class="services__modal-content">
+                                <h4 class="services__modal-title"> Frontend <br> Development</h4>
+                                <i class="uil uil-times services__modal-close"></i>
+
+                                <ul class="services__modal-services grid">
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>I develop the user interface.</p>
+                                    </li>
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>Web page development.</p>
+                                    </li>
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>I create ux element interactions.</p>
+                                    </li>
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>I position your company brand.</p>
+                                    </li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div> 
+
+                     <!--==================== SERVICES 3 ====================-->
+                     <div class="services__content">
+                        <div>
+                            <i class="uil uil-cube services__icon"></i>
+                            <h3 class="services__title">Video Game <br> Development </h3>
+                        </div>
+
+                        <span class="button button--flex button--small button--link services__button">
+                            View More
+                            <i class="uil uil-arrow-right button__icon"></i>                            
+                        </span>
+
+                        <div class="services__modal">
+                            <div class="services__modal-content">
+                                <h4 class="services__modal-title">Video Game <br> Development</h4>
+                                <i class="uil uil-times services__modal-close"></i>
+
+                                <ul class="services__modal-services grid">
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>I create Characters 2D & 3D.</p>
+                                    </li>
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>Game Design.</p>
+                                    </li>
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>Level Design.</p>
+                                    </li>
+                                    <li class="services__modal-service">
+                                        <i class="uil uil-check-circle services__modal-icon"></i>
+                                        <p>I develop video game scripts.</p>
+                                    </li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>                 
+                </div>
+            </section>
+
+            <!--==================== CONTACT ME ====================-->
+            <section class="contact section" id="contact">
+                <h2 class="section__title">Contact Me</h2>
+                <span class="section__subtitle">Get in touch</span>
+
+                <div class="contact__container container grid ">
+                    <div>
+                        <div class="contact_information">
+                            <i class="ri-chat-2-line contact__icon"></i>
+
+                            <div>
+                                <h3 class="contact__title">Email</h3>
+                                <span class="contact__subtitle">facuerhardt@gmail.com</span>
+                            </div>
+                        </div>
+
+                        <div class="contact_information">
+                            <i class="uil uil-discord contact__icon"></i>
+
+                            <div>
+                                <h3 class="contact__title">Discord</h3>
+                                <span class="contact__subtitle">Arafinwe#4346</span>
+                            </div>
+                        </div>
+
+                        <div class="contact_information">
+                            <i class="uil uil-map-marker contact__icon"></i>
+
+                            <div>
+                                <h3 class="contact__title">Location</h3>
+                                <span class="contact__subtitle">Resistencia, Chaco - Argentina </span>
+                            </div>
+                        </div>
+                    </div>
+
+                   <!--  <form action="" class="contac_form grid">
+                        <div class="contact__inputs grid">
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Name</label>
+                                <input type="text" class="contact__input">
+                            </div>
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Email</label>
+                                <input type="email" class="contact__input">
+                            </div>
+                        </div>
+                        <div class="contact__content">
+                            <label for="" class="contact__label">Project</label>
+                            <input type="text" class="contact__input">
+                        </div>
+                        <div class="contact__content">
+                            <label for="" class="contact__label">Message</label>
+                            <textarea name="" id="" cols="0" rows="7" class="contact__input"></textarea>
+                        </div>
+
+                        <div>
+                            <a href="#" class="button button--flex">
+                                Send Message <i class="ri-send-plane-2-line"></i>
+                            </a>
+                        </div>
+                    </form> -->
+                </div>
+            </section>
+        </main>
+
+        <!--==================== FOOTER ====================-->
+        <footer class="footer">
+            <div class="footer__bg">
+                <div class="footer__container container grid">
+                    <div>
+                        <h1 class="footer__title">Facu</h1>
+                        <span class="footer__subtitle">Software developer</span>
+                    </div>
+
+                    <ul class="footer__links">
+                        <li>
+                            <a href="#home" class="footer__link">Home</a>
+                        </li>
+                        <li>
+                            <a href="#about" class="footer__link">About</a>
+                        </li>
+                        <li>
+                            <a href="#qualification" class="footer__link">Qualification</a>
+                        </li>
+                        <li>
+                            <a href="#services" class="footer__link">Services</a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="footer__link">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="footer__socials">
+                        <a href="https://www.linkedin.com/in/facundoerhardt/" target="_blank" class="footer__social">
+                            <i class="uil uil-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/FacuErhardt" target="_blank" class="footer__social">
+                            <i class="uil uil-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/facu_erhardt/" target="_blank" class="footer__social">
+                             <i class="uil uil-instagram"></i>
+                        </a>
+                        <a href="https://discord.com/channels/Arafinwe#4346" target="_blank" class="footer__social">
+                            <i class="uil uil-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <p class="footer__copy">© CogoCode. All right reserved</p>
+            </div>
+        </footer>
+        
+        <!--==================== EMAILS JS ====================-->
+ 
+       
+ 
+        <!--==================== SWIPER JS ====================-->
+        <script src="assets/js/swiper-bundle.min.js"></script>
+        
+
+        <!--==================== MAIN JS ====================-->
+        <script src="assets/js/main.js"></script>
+    </body>
+</html> 
