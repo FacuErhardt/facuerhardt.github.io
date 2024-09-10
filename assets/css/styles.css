@@ -297,15 +297,16 @@ img{
 .home__social-icon:hover{
     color: var(--first-color-alt);
 }
-
+.home__image{
+    justify-self: center ;
+}
 .home__blob{
     width: 320px;
     fill: var(--first-color);
+    filter: drop-shadow(0 12px 12px hsla(var(--hue), 100%,40%, .2));
 }
 
-.home__blob-img{
-    width: 125px;
-}
+
 
 .home__data{
     grid-column: 1/3;
