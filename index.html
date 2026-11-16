@@ -15,10 +15,35 @@
         
         <!--==================== CSS ====================-->
         <link rel="stylesheet" href="assets/css/styles.css">
+        
+        <!--==================== ORI THEME (fondo parallax) ====================-->
+        <link rel="stylesheet" href="assets/css/ori-theme.css">
 
         <title>Responsive Portfolio Website</title>
     </head>
-    <body>
+    <body class="ori dark-theme">
+        <!--==================== ORI PARALLAX BACKGROUND ====================-->
+        <div class="ori-bg" aria-hidden="true">
+            <svg width="0" height="0" style="position:absolute"><defs>
+                <radialGradient id="oriGlow">
+                    <stop offset="0" style="stop-color:#fff;stop-opacity:.95"/>
+                    <stop offset=".25" style="stop-color:var(--c-glow);stop-opacity:.6"/>
+                    <stop offset="1" style="stop-color:var(--c-glow);stop-opacity:0"/>
+                </radialGradient>
+            </defs></svg>
+            <div class="ori-sky"></div>
+            <div class="ori-orb"></div>
+            <div class="ori-rays"></div>
+            <div class="ori-layer" data-layer="far"></div>
+            <div class="ori-mist ori-mist--a"></div>
+            <div class="ori-layer" data-layer="mid"></div>
+            <div class="ori-mist ori-mist--b"></div>
+            <canvas class="ori-fx" data-fx="back"></canvas>
+            <div class="ori-layer" data-layer="near"></div>
+            <div class="ori-layer ori-layer--blur" data-layer="front"></div>
+            <canvas class="ori-fx" data-fx="front"></canvas>
+            <div class="ori-vignette"></div>
+        </div>
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
@@ -76,7 +101,7 @@
         <!--==================== MAIN ====================-->
         <main class="main">
             <!--==================== HOME ====================-->
-            <section class="home section" id="home">
+            <section class="home section" id="home" data-biome="niwen">
                 <div class="home__container container grid">
                     <div class="home__content grid">
                         <div class="home__social">
@@ -155,7 +180,7 @@
             </section>
 
              <!--==================== ABOUT ====================-->
-            <section class="about section" id="about">
+            <section class="about section" id="about" data-biome="luma">
                <h2 class="section__title">About Me</h2>
                <h2 class="section__subtitle"> </h2>
 
@@ -176,7 +201,7 @@
             </section>
                
                 <!--==================== SKILLS ====================-->
-                <section class="filters container" >
+                <section class="filters container" data-biome="mould">
                     <!--=============== FILTERS TABS ===============-->
                     <ul class="filters__content">
                         <button class="filters__button filter-tab-active" data-target="#skills">
@@ -425,7 +450,7 @@
                 </section>
 
             <!--==================== QUALIFICATION ====================-->
-            <section class="qualification section" id="qualification">
+            <section class="qualification section" id="qualification" data-biome="ink">
                 <h2 class="section__title">Qualification</h2>
                 <span class="section__subtitle">My personal journey</span>
 
@@ -516,7 +541,7 @@
             </section>
 
             <!--==================== SERVICES ====================-->
-            <section class="services section" id="services">
+            <section class="services section" id="services" data-biome="waste">
                 <h2 class="section__title">Services</h2>
                 <span class="section__subtitle">What I offer</span>
 
@@ -644,7 +669,7 @@
             </section>
 
             <!--==================== CONTACT ME ====================-->
-            <section class="contact section" id="contact">
+            <section class="contact section" id="contact" data-biome="silent">
                 <h2 class="section__title">Contact Me</h2>
                 <span class="section__subtitle">Get in touch</span>
 
@@ -740,5 +765,7 @@
 
         <!--==================== MAIN JS ====================-->
         <script src="assets/js/main.js"></script>
+        <!--==================== ORI PARALLAX JS ====================-->
+        <script src="assets/js/ori-parallax.js"></script>
     </body>
 </html> 
