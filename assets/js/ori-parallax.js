@@ -127,7 +127,7 @@
     function buildNear(W, H, r) {
         let s = '';
         const S = clamp(W / 1200, .55, 1);
-        const gy = x => H - 150 + Math.sin(x / W * 9.4) * 22 + Math.sin(x * .013) * 10;
+        const gy = x => H - 210 + Math.sin(x / W * 9.4) * 22 + Math.sin(x * .013) * 10;
 
         // follaje colgante + lianas con bulbos
         const m = Math.round(W / 180);
@@ -193,15 +193,24 @@
     const xFront = cFront.getContext('2d');
 
     let W = innerWidth, H = innerHeight;
+    // modo ligero: moviles/tablets. Parallax corto, sin desenfoque y sin suavizado con retraso
+    let lite = false;
+    const LITE_E = { far: .04, mid: .10, near: .22, front: .30 };
+    function isLite() { return innerWidth < 768 || !finePointer; }
+    // En movil la barra del navegador cambia innerHeight al hacer scroll: usamos una altura estable
+    function stableH() {
+        return lite ? Math.round(Math.max(innerHeight, Math.min(screen.height || 0, innerHeight * 1.25))) : innerHeight;
+    }
 
     function buildLayers() {
-        W = innerWidth; H = innerHeight;
-        const mobile = W < 700;
+        lite = isLite();
+        W = innerWidth; H = stableH();
+        bg.style.height = H + 'px';
         layerEls.forEach((l, i) => {
             if (!l.el) return;
-            const dx = (finePointer && !reduce) ? l.dx : 0;
+            const dx = (finePointer && !reduce && !lite) ? l.dx : 0;
             const w = W + dx * 2;
-            const h = Math.round(H * (1 + l.e * (mobile ? .8 : 1)));
+            const h = Math.round(H * (1 + (lite ? LITE_E[l.name] : l.e)));
             l.h = h; l.px = h - H; l.dxPx = dx;
             l.el.style.left = -dx + 'px';
             l.el.style.width = w + 'px';
@@ -269,7 +278,7 @@
     }
 
     /*---------- Particulas ----------*/
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    let dpr = 1;
     let particles = [];
     let sprite = null, spriteKey = '';
 
@@ -290,13 +299,17 @@
     }
 
     function buildParticles() {
-        [cBack, cFront].forEach(c => { c.width = W * dpr; c.height = H * dpr; });
+        dpr = lite ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+        [cBack, cFront].forEach(c => {
+            c.width = W * dpr; c.height = H * dpr;
+            c.style.width = W + 'px'; c.style.height = H + 'px';
+        });
         const r = rng(777);
-        const total = clamp(Math.round(W * H / 9000), 55, 170) * (W < 700 ? .6 : 1);
+        const total = lite ? clamp(Math.round(W * H / 16000), 24, 42) : clamp(Math.round(W * H / 9000), 55, 170);
         particles = [];
         for (let i = 0; i < total; i++) {
             const roll = r();
-            const kind = roll < .62 ? 'spore' : roll < .9 ? 'wisp' : 'bokeh';
+            const kind = roll < .62 ? 'spore' : (roll < .9 || lite) ? 'wisp' : 'bokeh';
             const p = { kind, x: r() * W, y: r() * H, ph: r() * 6.28, sp: .6 + r() * 1.4 };
             if (kind === 'spore') { p.d = .3 + r() * .6; p.s = 2 + r() * 3;  p.a = .35; p.vy = -(4 + r() * 8);  p.front = false; }
             if (kind === 'wisp')  { p.d = .8 + r() * .6; p.s = 6 + r() * 8;  p.a = .8;  p.vy = -(6 + r() * 12); p.front = r() < .4; }
@@ -318,6 +331,12 @@
     }
 
     function applyTransforms() {
+        if (lite) {
+            layerEls.forEach(l => {
+                if (l.el) l.el.style.transform = `translate3d(0,${f(-P * l.px)}px,0)`;
+            });
+            return;
+        }
         layerEls.forEach(l => {
             if (!l.el) return;
             l.el.style.transform = `translate3d(${f(mx * l.dxPx)}px,${f(-P * l.px + my * l.dxPx * .3)}px,0)`;
@@ -352,7 +371,7 @@
                 if (p.x < -20) p.x = W + 20; else if (p.x > W + 20) p.x = -20;
             }
             let sx = p.x + mx * 18 * p.d;
-            let syy = ((p.y - smoothSy * .28 * p.d) % H + H) % H;
+            let syy = ((p.y - smoothSy * (lite ? .05 : .28) * p.d) % H + H) % H;
 
             // la luz Sein atrae suavemente a las luces cercanas
             if (cursorSeen && p.kind !== 'bokeh') {
@@ -387,8 +406,8 @@
     function frame(t) {
         const dt = Math.min(.05, (t - last) / 1000 || 0);
         last = t;
-        P += (targetP - P) * .12;
-        smoothSy += (sy - smoothSy) * .12;
+        if (lite) { P = targetP; smoothSy = sy; }
+        else { P += (targetP - P) * .12; smoothSy += (sy - smoothSy) * .12; }
         mx += (tmx - mx) * .06;
         my += (tmy - my) * .06;
         cx += (tx - cx) * .2;
@@ -409,10 +428,17 @@
         applyTransforms();
     }
 
-    let resizeTimer;
+    let resizeTimer, builtW = innerWidth, builtH = innerHeight;
     function onResize() {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => { setup(); if (reduce) drawParticles(0, 0); }, 200);
+        resizeTimer = setTimeout(() => {
+            const dw = Math.abs(innerWidth - builtW);
+            const dh = Math.abs(innerHeight - builtH) / builtH;
+            if (dw < 2 && dh < .25 && innerHeight <= H + 2) { measure(); onScroll(); return; } // solo la barra del navegador (si encoge, el fondo ya cubre)
+            builtW = innerWidth; builtH = innerHeight;
+            setup();
+            if (reduce) drawParticles(0, 0);
+        }, 200);
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });

@@ -9,6 +9,11 @@
 html{
     background: #050a1c;
 }
+html, body{ overflow-x: clip; }
+
+/* el blob del hero medía 320px fijos y desbordaba en pantallas de 360px */
+body.ori .home__blob{ width: min(320px, 100%); height: auto; }
+body.ori .home__content > *{ min-width: 0; }
 
 /* valores por defecto (por si el JS tarda o falla) */
 :root{
@@ -24,7 +29,7 @@ body.ori.dark-theme{
     --first-color: var(--c-glow);
     --first-color-alt: color-mix(in srgb, var(--c-glow) 78%, #000);
     --first-color-lighter: color-mix(in srgb, var(--c-glow) 55%, #fff);
-    --first-color-second: rgba(4, 9, 24, .38);
+    --first-color-second: rgba(4, 9, 24, .10);
     --title-color: #f1faff;
     --text-color: #c3d7ea;
     --text-color-light: #98b0c8;
@@ -258,10 +263,14 @@ body.ori .qualification__line{
 
 /*==================== FOOTER ====================*/
 body.ori .footer__bg{
-    background-color: rgba(4, 9, 24, .38);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    background-color: rgba(4, 9, 24, .10);
     border-top: 1px solid rgba(var(--glow-rgb), .2);
+}
+body.ori .footer__title,
+body.ori .footer__subtitle,
+body.ori .footer__link,
+body.ori .footer__copy{
+    text-shadow: 0 1px 12px rgba(2, 6, 18, .9), 0 0 3px rgba(2, 6, 18, .8);
 }
 
 /*==================== ACCESIBILIDAD / RENDIMIENTO ====================*/
@@ -273,7 +282,8 @@ body.ori .footer__bg{
 }
 
 @media screen and (max-width: 767px){
-    .ori-layer--blur svg{ filter: blur(4px); }
+    .ori-layer--blur svg{ filter: none; opacity: .8; }
+    .ori-mist{ animation: none; }
     /* backdrop-filter crearia un contenedor para el menu fixed y lo rompe en movil */
     body.ori .header{
         -webkit-backdrop-filter: none;
