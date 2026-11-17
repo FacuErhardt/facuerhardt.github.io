@@ -244,37 +244,70 @@
         const sy = window.pageYOffset;
         anchors = sections.map(s => {
             const b = s.getBoundingClientRect();
-            return { mid: b.top + sy + b.height / 2, pal: PAL[s.dataset.biome] || PAL.niwen };
-        }).sort((a, b) => a.mid - b.mid);
+            return { top: b.top + sy, bottom: b.bottom + sy, biome: PAL[s.dataset.biome] ? s.dataset.biome : 'niwen' };
+        }).sort((a, b) => a.top - b.top);
         maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
     }
 
-    let glowRgb = [155, 231, 255];
+    /*
+      Por que no cambiar variables CSS: cada cambio de --c-* recalcula estilos de
+      toda la pagina y repinta las capas SVG (44-82 ms por cambio en CPU lenta,
+      mas que un frame). Aqui el color vive en capas de tinte fijas con
+      mix-blend-mode: color. Cambiar de seccion solo transiciona su opacidad,
+      que la GPU resuelve sin repintar nada. El acento de la web no cambia.
+    */
+    const TINTS = {
+        niwen:  '#2a7fb0',
+        luma:   '#1fa89a',
+        mould:  '#6e9e2c',
+        ink:    '#8a3fb8',
+        waste:  '#d0651d',
+        silent: '#3d58b8'
+    };
+    const tintEls = {};
+    let curBiome = null, activeIdx = 0;
 
-    function updateBiome(sy) {
-        let pal;
-        if (!anchors.length) pal = PAL.niwen;
-        else {
-            const y = sy + innerHeight * .45;
-            if (y <= anchors[0].mid) pal = anchors[0].pal;
-            else if (y >= anchors[anchors.length - 1].mid) pal = anchors[anchors.length - 1].pal;
-            else {
-                let i = 0;
-                while (i < anchors.length - 2 && y > anchors[i + 1].mid) i++;
-                const a = anchors[i], b = anchors[i + 1];
-                const t = smooth(clamp((y - a.mid) / (b.mid - a.mid), 0, 1));
-                pal = a.pal.map((c, k) => mix(c, b.pal[k], t));
-            }
-        }
-        const hex = pal.map(rgb2hex);
-        const key = hex.join('');
-        if (key === lastKey) return;
-        lastKey = key;
-        VARS.forEach((v, i) => root.style.setProperty('--c-' + v, hex[i]));
-        root.style.setProperty('--c-front', rgb2hex(pal[6].map(v => v * .55)));
-        glowRgb = pal[3].map(Math.round);
-        root.style.setProperty('--glow-rgb', glowRgb.join(','));
-        root.style.setProperty('--fog-rgb', pal[8].map(Math.round).join(','));
+    function buildTints() {
+        if (Object.keys(tintEls).length) return;
+        const vignette = bg.querySelector('.ori-vignette');
+        Object.keys(TINTS).forEach(name => {
+            const d = document.createElement('div');
+            d.className = 'ori-tint';
+            d.style.background = TINTS[name];
+            bg.insertBefore(d, vignette);
+            tintEls[name] = d;
+        });
+    }
+
+    function setBiome(name, instant) {
+        if (name === curBiome && !instant) return;
+        curBiome = name;
+        Object.keys(tintEls).forEach(k => {
+            const el = tintEls[k];
+            if (instant) el.classList.add('no-anim');
+            el.classList.toggle('is-on', k === name);
+            if (instant) { void el.offsetWidth; el.classList.remove('no-anim'); }
+        });
+    }
+
+    function pickSection(sy) {
+        if (!anchors.length) return 0;
+        const y = sy + innerHeight * .5;
+        const cur = anchors[activeIdx];
+        // histeresis: no cambiar hasta pasar 70px del limite de la seccion actual
+        if (cur && y > cur.top - 70 && y < cur.bottom + 70) return activeIdx;
+        let best = activeIdx, bd = Infinity;
+        anchors.forEach((a, i) => {
+            const d = y < a.top ? a.top - y : y > a.bottom ? y - a.bottom : 0;
+            if (d < bd) { bd = d; best = i; }
+        });
+        return best;
+    }
+
+    function updateBiome(sy, instant) {
+        if (!anchors.length) return;
+        activeIdx = pickSection(sy);
+        setBiome(anchors[activeIdx].biome, instant);
     }
 
     /*---------- Particulas ----------*/
@@ -283,7 +316,7 @@
     let sprite = null, spriteKey = '';
 
     function makeSprite() {
-        const key = glowRgb.join(',');
+        const key = '155,231,255';
         if (key === spriteKey) return;
         spriteKey = key;
         sprite = document.createElement('canvas');
@@ -319,6 +352,7 @@
     }
 
     /*---------- Estado de scroll / raton ----------*/
+    let builtOnce = false;
     let P = 0, targetP = 0, sy = 0, smoothSy = 0;
     let mx = 0, my = 0, tmx = 0, tmy = 0;
     let cx = -999, cy = -999, tx = -999, ty = -999, cursorSeen = 0;
@@ -327,7 +361,7 @@
     function onScroll() {
         sy = window.pageYOffset;
         targetP = clamp(sy / maxScroll, 0, 1);
-        updateBiome(sy);
+        updateBiome(sy, false);
     }
 
     function applyTransforms() {
@@ -420,10 +454,14 @@
 
     /*---------- Eventos ----------*/
     function setup() {
+        buildTints();
         measure();
         buildLayers();
         buildParticles();
-        onScroll();
+        sy = window.pageYOffset;
+        targetP = clamp(sy / maxScroll, 0, 1);
+        updateBiome(sy, !builtOnce);
+        builtOnce = true;
         P = targetP; smoothSy = sy;
         applyTransforms();
     }

@@ -160,6 +160,22 @@ body.ori.dark-theme{
     background: radial-gradient(ellipse at 50% 45%, transparent 42%, rgba(2, 5, 14, .6) 100%);
 }
 
+/* Tinte por seccion: solo cambia opacidad (compositor, sin repintar el bosque) */
+.ori-tint{
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: color;
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+    transition: opacity 1.8s cubic-bezier(.45, 0, .2, 1);
+}
+.ori-tint.is-on{ opacity: .5; }
+.ori-tint.no-anim{ transition: none; }
+@media (prefers-reduced-motion: reduce){
+    .ori-tint{ transition: none; }
+}
+
 @keyframes oriPulse{
     0%, 100%{ scale: 1;    opacity: 1; }
     50%{      scale: 1.05; opacity: .88; }
@@ -273,6 +289,283 @@ body.ori .footer__copy{
     text-shadow: 0 1px 12px rgba(2, 6, 18, .9), 0 0 3px rgba(2, 6, 18, .8);
 }
 
+/*==================== VENTANA SERVICES (estilo gamer) ====================
+  Causa del bug de escritorio: un ancestro con backdrop-filter convierte
+  a los hijos position:fixed en relativos a ese ancestro. Por eso la ventana
+  se metia dentro de la tarjeta y no cubria la pantalla. Se quita el blur
+  de esos contenedores; el blur queda solo en el overlay de la ventana.
+*/
+body.ori .services__container,
+body.ori .services__content{
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+body.ori .services__modal{
+    background:
+        radial-gradient(ellipse at 50% 40%, rgba(var(--glow-rgb), .10), transparent 60%),
+        rgba(2, 5, 14, .72);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    padding: 1rem;
+}
+/* lineas de escaneo */
+body.ori .services__modal::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+    pointer-events: none;
+}
+
+body.ori .services__modal-content{
+    position: relative;
+    width: min(440px, 100%);
+    padding: 2.25rem 1.75rem 1.75rem;
+    border-radius: 0;
+    background: linear-gradient(160deg, rgba(14, 34, 68, .97), rgba(5, 12, 30, .98));
+    border: 1px solid rgba(var(--glow-rgb), .6);
+    clip-path: polygon(22px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 22px);
+    box-shadow: 0 0 40px rgba(var(--glow-rgb), .25), inset 0 0 60px rgba(var(--glow-rgb), .05);
+    transform: translateY(18px) scale(.94);
+    opacity: 0;
+    transition: transform .4s cubic-bezier(.2, 1.25, .35, 1), opacity .3s ease;
+}
+/* barra superior de progreso */
+body.ori .services__modal-content::before{
+    content: '';
+    position: absolute;
+    top: -1px; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--first-color), transparent 85%);
+    box-shadow: 0 0 12px rgba(var(--glow-rgb), .8);
+}
+body.ori .active-modal .services__modal-content{
+    transform: none;
+    opacity: 1;
+}
+
+body.ori .services__modal-title{
+    font-family: var(--title-font);
+    font-size: 1.6rem;
+    letter-spacing: .02em;
+    text-shadow: 0 0 18px rgba(var(--glow-rgb), .5);
+}
+body.ori .services__modal-title::before{
+    content: '> SERVICIO';
+    display: block;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: .72rem;
+    letter-spacing: .18em;
+    color: var(--first-color);
+    margin-bottom: .4rem;
+    opacity: .85;
+}
+
+body.ori .services__modal-service{
+    align-items: center;
+    padding: .55rem .75rem;
+    border-left: 2px solid rgba(var(--glow-rgb), .35);
+    background: rgba(var(--glow-rgb), .04);
+}
+body.ori .services__modal-icon{
+    color: var(--first-color);
+    text-shadow: 0 0 8px rgba(var(--glow-rgb), .9);
+}
+
+body.ori .services__modal-close{
+    top: .9rem;
+    right: .9rem;
+    width: 2.1rem;
+    height: 2.1rem;
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    border: 1px solid rgba(var(--glow-rgb), .5);
+    transition: background .2s ease, transform .25s ease;
+}
+body.ori .services__modal-close:hover{
+    background: rgba(var(--glow-rgb), .15);
+    transform: rotate(90deg);
+}
+
+/*==================== SKILLS = INVENTARIO DE POWER-UPS ====================
+  La rareza sale del nivel del HTML (data-rarity): Basic = comun,
+  Intermediate = raro, Advanced = epico.
+*/
+body.ori{
+    --rar-common: #8ea6c4;
+    --rar-rare: var(--c-glow);
+    --rar-epic: #c99bff;
+    --rar-legend: #ffd86b;
+}
+
+body.ori .skills__content{ row-gap: 2.5rem; }
+body.ori .skills__title{
+    font-family: var(--title-font);
+    font-size: 1.5rem;
+    letter-spacing: .03em;
+    text-shadow: 0 0 16px rgba(var(--glow-rgb), .45);
+}
+body.ori .skills__title::before{
+    content: 'INVENTARIO';
+    display: block;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: .7rem;
+    letter-spacing: .2em;
+    color: var(--first-color);
+    opacity: .85;
+    margin-bottom: .3rem;
+}
+body.ori .skills__box{
+    flex-wrap: wrap;
+    column-gap: 1.25rem;
+    row-gap: 1.25rem;
+    justify-content: center;
+}
+body.ori .skills__group{
+    flex: 1 1 230px;
+    max-width: 290px;
+    row-gap: .85rem;
+}
+
+body.ori .skills__data{
+    position: relative;
+    align-items: center;
+    padding: .9rem .9rem .8rem 1rem;
+    background: linear-gradient(160deg, rgba(10, 24, 52, .85), rgba(5, 12, 30, .92));
+    border: 1px solid var(--rar, var(--rar-common));
+    border-radius: 2px;
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--rar, var(--rar-common)) 25%, transparent);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+body.ori .skills__data:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 0 22px color-mix(in srgb, var(--rar, var(--rar-common)) 55%, transparent);
+}
+/* etiqueta de rareza en la esquina */
+body.ori .skills__data::before{
+    content: attr(data-rarity);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .15rem .45rem;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: .6rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #04101f;
+    background: var(--rar, var(--rar-common));
+}
+body.ori .skills__data[data-rarity="common"]{ --rar: var(--rar-common); }
+body.ori .skills__data[data-rarity="rare"]{  --rar: var(--rar-rare); }
+body.ori .skills__data[data-rarity="epic"]{  --rar: var(--rar-epic); }
+
+body.ori .skills__data i{
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    color: var(--rar, var(--rar-common));
+    border: 1px solid var(--rar, var(--rar-common));
+    border-radius: 50%;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--rar, var(--rar-common)) 60%, transparent);
+}
+body.ori .skills__name{ font-family: var(--title-font); font-size: 1.15rem; font-weight: 600; }
+body.ori .skills__level{
+    display: inline-block;
+    margin-top: .2rem;
+    color: var(--rar, var(--rar-common));
+    letter-spacing: .04em;
+}
+
+/*==================== PROJECTS = COLECCIONABLES ====================*/
+body.ori .projects__content{
+    counter-reset: coleccion;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.5rem;
+}
+body.ori .projects__card{
+    counter-increment: coleccion;
+    position: relative;
+    padding: .6rem;
+    border-radius: 6px;
+    background: linear-gradient(170deg, rgba(14, 34, 68, .95), rgba(5, 12, 30, .97));
+    border: 2px solid var(--rar, var(--rar-epic));
+    box-shadow: 0 0 22px color-mix(in srgb, var(--rar, var(--rar-epic)) 30%, transparent);
+    overflow: hidden;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+body.ori .projects__card:hover{
+    transform: translateY(-4px) rotate(-.4deg);
+    box-shadow: 0 0 34px color-mix(in srgb, var(--rar, var(--rar-epic)) 60%, transparent);
+}
+/* numero de coleccion */
+body.ori .projects__card::before{
+    content: '#0' counter(coleccion);
+    position: absolute;
+    top: .9rem;
+    left: .9rem;
+    z-index: 2;
+    padding: .15rem .5rem;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: #04101f;
+    background: var(--rar, var(--rar-epic));
+}
+body.ori .projects__card:nth-child(1){ --rar: var(--rar-legend); }
+body.ori .projects__card:nth-child(n+2){ --rar: var(--rar-epic); }
+body.ori .projects__card:nth-child(3){ --rar: var(--rar-rare); }
+
+body.ori .projects__card img{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 3px;
+    filter: saturate(1.05) contrast(1.02);
+}
+/* la info siempre visible (en movil no hay hover) */
+body.ori .projects__modal{
+    position: relative;
+    bottom: auto;
+    height: auto;
+    margin-top: .6rem;
+    padding: .2rem 0 0;
+    background: none;
+}
+body.ori .projects__card:hover .projects__modal{ bottom: auto; }
+body.ori .projects__modal > div{ text-align: left; }
+body.ori .projects__subtitle{
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--rar, var(--rar-epic));
+}
+body.ori .projects__title{
+    font-family: var(--title-font);
+    font-size: 1.35rem;
+    margin: .2rem 0 .7rem;
+    color: var(--title-color);
+}
+body.ori .projects__button{
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .45rem .8rem;
+    font-size: .75rem;
+    letter-spacing: .12em;
+    color: #04101f;
+    background: var(--rar, var(--rar-epic));
+    border-radius: 2px;
+    box-shadow: 0 0 14px color-mix(in srgb, var(--rar, var(--rar-epic)) 50%, transparent);
+}
+
 /*==================== ACCESIBILIDAD / RENDIMIENTO ====================*/
 @media (prefers-reduced-motion: reduce){
     .ori-orb,
@@ -283,6 +576,11 @@ body.ori .footer__copy{
 
 @media screen and (max-width: 767px){
     .ori-layer--blur svg{ filter: none; opacity: .8; }
+    body.ori .services__modal{ -webkit-backdrop-filter: none; backdrop-filter: none; background-color: rgba(2, 5, 14, .85); }
+    body.ori .services__modal-content{ padding: 2rem 1.25rem 1.25rem; }
+    body.ori .skills__group{ flex-basis: 150px; max-width: none; }
+    body.ori .skills__name{ font-size: 1rem; }
+    body.ori .projects__content{ grid-template-columns: 1fr 1fr; gap: 1rem; }
     .ori-mist{ animation: none; }
     /* backdrop-filter crearia un contenedor para el menu fixed y lo rompe en movil */
     body.ori .header{
@@ -294,5 +592,15 @@ body.ori .footer__copy{
     body.ori .filters,
     body.ori .qualification__container,
     body.ori .services__container,
-    body.ori .contact__container{ padding: 1rem; }
+    body.ori .contact__container{
+        padding: 1rem;
+        background: rgba(5, 12, 30, .62);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+    body.ori .services__content{
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background-color: rgba(9, 22, 48, .7);
+    }
 }
